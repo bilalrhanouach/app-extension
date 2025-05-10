@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
       const prompt = `Please provide a definition and two example sentences for the word "${word}". Format the response as a JSON with the following structure: {"word": "${word}", "definition": "definition here", "examples": ["example1", "example2"]}. Make the examples natural and contextual.`;
 
-      const response = await fetch(CONFIG.API_ENDPOINT, {
+      const response = await fetch(`${CONFIG.API_ENDPOINT}/models/gemini-pro:generateContent`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             },
           ],
         }),
-      }); // ← properly closed fetch call
+      });
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
